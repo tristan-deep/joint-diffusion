@@ -1,0 +1,107 @@
+# Training parameters
+epochs:
+  desc: Number of epochs to train over
+  value: 100
+batch_size:
+  desc: Size of each mini-batch
+  value: 16
+seed:
+  desc: Random seed for reproducibility experiments
+  value: 1234
+lr:
+  desc: Learning rate for model
+  value: 0.0002
+ema:
+  desc: exponential moving average of network weights
+  value: 0.99999
+embed_dim:
+  desc: Size of embedded time vector
+  value: 256
+save_freq:
+  desc: Saving frequency of models in terms of epochs
+  value: 5
+eval_freq:
+  desc: Evaluation frequency of models in terms of epochs
+  value: 3
+num_img:
+  desc: Number of images to plot
+  value: 64
+
+# Model parameters
+model_name:
+  desc: Name of the deep generative model
+  value: score
+score_backbone:
+  desc: name of backbone model architecture
+  value: NCSNv2
+sde:
+  desc: Stochastic Differential Equation (SDE) type
+  value: simple
+sigma:
+  desc: Sigma value in SDE
+  value: 25.0
+num_scales:
+  desc: sde property
+  value: 1000
+reduce_mean:
+  desc: reduction type of loss function
+  value: false
+likelihood_weighting:
+  desc: null
+  value: false
+normalization:
+  desc: Type of normalization in neural network
+  value: batch
+channels:
+  desc: channels. List for UNet, and single int for NCSNv2.
+  value: 32
+kernel_size:
+  desc: size of convolutional filters
+  value: 3
+upmode:
+  desc: either upconv or upsample
+  value: upconv
+activation:
+  desc: activation function
+  value: relu
+drop_prob:
+  desc: dropout probability
+  value: null
+
+# Sampling
+sampling_method:
+  value: pc
+predictor:
+  value: euler_maruyama
+corrector:
+  value: none
+n_steps_each:
+  desc: The number of corrector steps per predictor update.
+  value: 1
+noise_removal:
+  desc: add one-step denoising to the final samples
+  value: True
+probability_flow:
+  desc: solve the reverse-time probability flow ODE when running the predictor
+  value: False
+snr:
+  desc: The signal-to-noise ratio for configuring correctors
+  value: 0.17
+# Data parameters
+data_root:
+  desc: Path to data root.
+  value: null
+dataset_name:
+  desc: Name of the dataset
+  value: mnist
+image_size:
+  desc: Size of image, can be int or tuple (x, y).
+  value: 64
+image_range:
+  desc: Tuple with range of input image neural network.
+  value: [0, 1]
+color_mode:
+  desc: Either grayscale (1 channel) or rgb (3 channels).
+  value: grayscale
+limit_n_samples:
+  value: 500

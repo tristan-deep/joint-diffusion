@@ -1,0 +1,76 @@
+## Inference parameters
+# path to data root
+data_root: D:\data
+# dataset
+run_name: celeba
+# path to data root
+run_id:
+  sgm: ./checkpoints/celeba/sgm
+  glow: ./checkpoints/celeba/glow
+  gan: ./checkpoints/celeba/gan
+# device
+device: 0
+# random seed
+seed: 12345
+# number of images to process
+num_img: 5
+# keep track of images in each iteration and animate at the end
+keep_track: true
+# standard deviation of additive white gaussian noise
+noise_stddev: 0.5
+# type of corruption
+corruptor: mnist
+# whether to corrupt data and use as pairs or assume data is corrupted
+paired_data: true
+# plot zoomed in version as well (provide coordinates here as list, (x, y, size))
+zoom: null
+
+# sample from prior distribution for comparison
+show_noise_priors: false
+# disable corruptor model (use regular denoising)
+disable_corruptor_model: false
+
+limit_n_samples: 100
+# translation: 0.3
+
+metrics:
+  - psnr
+  - ssim
+models:
+  - bm3d
+  - gan
+  - glow
+  - sgm
+
+sgm:
+  lambda_coeff: 0.93
+  kappa_coeff: 0.88
+  # number of noise scales (i.e. time steps in SDE)
+  num_scales: 600
+  sde: simple
+  sigma: 25
+  sampling_method: pc
+  predictor: euler_maruyama
+  corrector: none
+  guidance: pigdm
+  corruptor_run_id: ./checkpoints/mnist-rgb/sgm
+  batch_size: 25
+
+glow:
+  lambda_coeff: 0.03
+  step_size: 0.005
+  num_steps: 600
+  prior: log_p_x
+  optim: adam
+  init_std: 0.1
+  init_strat: observation
+  corruptor_run_id: ./checkpoints/mnist-rgb/glow
+  show_optimization_progress: true
+  batch_size: 6
+
+gan:
+  lambda_coeff: 0.9
+  step_size: 0.05
+  num_steps: 1000
+  prior: z_squared
+  batch_size: 128

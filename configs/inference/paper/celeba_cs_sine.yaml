@@ -1,0 +1,76 @@
+## Inference parameters
+# path to data root
+data_root: D:\data
+# dataset
+run_name: celeba
+# checkpoints
+run_id:
+  sgm: ./checkpoints/celeba/sgm
+  glow: ./checkpoints/celeba/glow
+  gan: ./checkpoints/celeba/gan
+# device
+device: 0
+# random seed
+seed: 12345
+# number of images to process
+num_img: 2
+# keep track of images in each iteration and animate at the end
+keep_track: true
+# standard deviation of additive white gaussian noise
+noise_stddev: 0.1
+# type of corruption
+corruptor: cs_sine
+# whether to corrupt data and use as pairs or assume data is corrupted
+paired_data: true
+# plot zoomed in version as well (provide coordinates here as list, (x, y, size))
+zoom: null
+# subsample
+subsample_factor: 2
+
+# sample from prior distribution for comparison
+show_noise_priors: false
+# disable corruptor model (use regular denoising)
+disable_corruptor_model: false
+
+limit_n_samples: 100
+
+metrics:
+  - psnr
+  - ssim
+models:
+  - wvtcs
+  - glow
+  - gan
+  - sgm
+
+sgm:
+  lambda_coeff: 1.66
+  kappa_coeff: 1.19
+  # number of noise scales (i.e. time steps in SDE)
+  num_scales: 600
+  sde: simple
+  sigma: 25
+  sampling_method: pc
+  predictor: euler_maruyama
+  guidance: pigdm
+  corruptor_run_id: 1mpivcv5
+  batch_size: 10
+
+glow:
+  lambda_coeff: 1.0
+  step_size: 0.1
+  num_steps: 200
+  prior: log_p_x
+  optim: adam
+  init_std: 0.1
+  init_strat: random
+
+gan:
+  lambda_coeff: 10
+  step_size: 0.21
+  num_steps: 1000
+  prior: z
+
+wvtcs:
+  lambda_coeff: 0.01
+  lasso_solver: sklearn

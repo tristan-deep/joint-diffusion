@@ -1,0 +1,100 @@
+# Training parameters
+epochs:
+  desc: Number of epochs to train over
+  value: 300
+batch_size:
+  desc: Size of each mini-batch
+  value: 8
+seed:
+  desc: Random seed for reproducibility experiments
+  value: 123
+lr:
+  desc: Learning rate for model
+  value: 0.0005
+ema:
+  desc: exponential moving average of network weights
+  value: 0.99999
+save_freq:
+  desc: Saving frequency of models in terms of epochs
+  value: 10
+eval_freq:
+  desc: Evaluation frequency of models in terms of epochs
+  value: 5
+num_img:
+  desc: Number of images to plot
+  value: 16
+
+# Model parameters
+model_name:
+  desc: Name of the deep generative model
+  value: score
+score_backbone:
+  desc: name of backbone model architecture
+  value: NCSNv2
+sde:
+  desc: Stochastic Differential Equation (SDE) type
+  value: simple
+sigma:
+  desc: Sigma value in SDE
+  value: 25.0
+reduce_mean:
+  desc: reduction type of loss function
+  value: false
+likelihood_weighting:
+  desc: null
+  value: false
+normalization:
+  desc: Type of normalization in neural network
+  value: batch
+channels:
+  desc: channels. List for UNet, and single int for NCSNv2
+  value: 64
+kernel_size:
+  desc: size of convolutional filters
+  value: 4
+upmode:
+  desc: either upconv or upsample
+  value: upconv
+activation:
+  desc: activation function
+  value: relu
+drop_prob:
+  desc: dropout probability
+  value: null
+
+# Sampling
+sampling_method:
+  value: pc
+predictor:
+  value: euler_maruyama
+corrector:
+  value: none
+n_steps_each:
+  desc: The number of corrector steps per predictor update.
+  value: 1
+noise_removal:
+  desc: add one-step denoising to the final samples
+  value: True
+probability_flow:
+  desc: solve the reverse-time probability flow ODE when running the predictor
+  value: False
+snr:
+  desc: The signal-to-noise ratio for configuring correctors
+  value: 0.17
+
+# Data parameters
+data_root:
+  desc: Path to data root.
+  value: /home/ext_drives/nas_drive/tswstevens/data
+dataset_name:
+  desc: Name of the dataset
+  value: celeba
+image_size:
+  desc: Size of image, can be int or tuple (x, y).
+  value: 128
+image_range:
+  desc: Tuple with range of input image neural network.
+  value: [0, 1]
+color_mode:
+  desc: Either grayscale (1 channel) or rgb (3 channels).
+  value: rgb

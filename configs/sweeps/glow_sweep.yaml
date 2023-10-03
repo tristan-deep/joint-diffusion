@@ -1,0 +1,22 @@
+# Sweep parameters
+objective: psnr
+num_iterations: 50
+
+parameters:
+  - name: lambda_coeff
+    type: range
+    bounds:
+      - 0.001
+      - 1.5
+    value_type: float
+    log_scale: False
+  - name: step_size
+    type: range
+    bounds:
+      - 0.05
+      - 0.4
+    value_type: float
+    log_scale: False
+  - name: prior
+    type: choice
+    values: ['z', 'z_squared', 'log_p_x']

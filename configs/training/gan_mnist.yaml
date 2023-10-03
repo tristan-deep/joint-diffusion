@@ -1,0 +1,68 @@
+# Training parameters
+epochs:
+  desc: Number of epochs to train over
+  value: 500
+batch_size:
+  desc: Size of each mini-batch
+  value: 128
+seed:
+  desc: Random seed for reproducibility experiments
+  value: 123
+d_lr:
+  desc: Learning rate for discriminator
+  value: 0.0001
+g_lr:
+  desc: Learning rate for generator
+  value: 0.0001
+label_sigma:
+  desc: Standard deviation of additive noise on labels
+  value: 0.05
+latent_dim:
+  desc: Size of latent space
+  value: 100
+save_freq:
+  desc: Saving frequency of models in terms of epochs
+  value: 20
+eval_freq:
+  desc: Evaluation frequency of models in terms of epochs
+  value: 1
+num_img:
+  desc: Number of images to plot
+  value: 16
+adam_betas:
+  value:
+    - 0.5
+    - 0.999
+
+# Model parameters
+model_name:
+  desc: Name of the deep generative model
+  value: gan
+
+# Discriminator
+d_steps:
+  desc: Discriminator update steps for each train step
+  value: 1
+d_n_channels:
+  value: 64
+
+# Generator
+g_n_channels:
+  value: 64
+
+# Data parameters
+data_root:
+  desc: Path to data root.
+  value: D:\data
+dataset_name:
+  desc: Name of the dataset
+  value: mnist
+image_size:
+  desc: Size of image, can be int or tuple (x, y).
+  value: 64
+image_range:
+  desc: Tuple with range of input image neural network.
+  value: [-1, 1]
+color_mode:
+  desc: Either grayscale (1 channel) or rgb (3 channels).
+  value: grayscale

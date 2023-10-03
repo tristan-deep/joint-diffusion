@@ -1,0 +1,22 @@
+# Sweep parameters
+objective: ssim
+num_iterations: 50
+
+parameters:
+  - name: lambda_coeff
+    type: range
+    bounds: 
+      - 0.01
+      - 10
+    value_type: float
+    log_scale: false
+  - name: step_size
+    type: range
+    bounds: 
+      - 0.01
+      - 0.4
+    value_type: float
+    log_scale: False
+  - name: prior
+    type: choice
+    values: ['z', 'z_squared']

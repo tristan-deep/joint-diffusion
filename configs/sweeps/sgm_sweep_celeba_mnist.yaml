@@ -1,0 +1,19 @@
+# Sweep parameters
+objective: psnr
+num_iterations: 50
+
+parameters:
+  - name: lambda_coeff
+    type: range
+    bounds:
+      - .1
+      - 50
+    value_type: float
+    log_scale: false
+  - name: kappa_coeff
+    type: range
+    bounds:
+      - .1
+      - 50
+    value_type: float
+    log_scale: false

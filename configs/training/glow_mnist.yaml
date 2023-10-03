@@ -1,0 +1,76 @@
+# Training parameters
+epochs:
+  desc: Number of epochs to train over
+  value: 1000
+batch_size:
+  desc: Size of each mini-batch
+  value: 16
+seed:
+  desc: Random seed for reproducibility experiments
+  value: 1234
+lr:
+  desc: Learning rate for model
+  value: 0.0001
+lr_factor:
+  desc: factor to which multiply learning rate with
+  value: 0.5
+lr_patience:
+  desc: number of batch steps before decreasing lr
+  value: 1000
+lr_min:
+  desc: minimum learning rate
+  value: 1.0E-8
+warmup_iter:
+  desc: warmup iterations
+  value: 10000
+log_freq:
+  desc: Frequency of logging to wandb
+  value: 100
+save_freq:
+  desc: Saving frequency of models in terms of epochs
+  value: 1
+eval_freq:
+  desc: Evaluation frequency of models in terms of epochs
+  value: 1
+num_img:
+  desc: Number of images to plot
+  value: 16
+
+# Model parameters
+model_name:
+  desc: Name of the deep generative model
+  value: glow
+K:
+  value: 18
+L:
+  value: 4
+coupling:
+  value: affine
+n_bits_x:
+  value: 5
+last_zeros:
+  value: true
+clipnorm:
+  desc: gradient clipping
+  value: 5
+device:
+  value: cuda
+
+# Data parameters
+data_root:
+  desc: Path to data root.
+  value: D:\data
+dataset_name:
+  desc: Name of the dataset
+  value: mnist
+image_size:
+  desc: Size of image, can be int or tuple (x, y).
+  value: 64
+image_range:
+  desc: Tuple with range of input image neural network.
+  value: [0, 1]
+color_mode:
+  desc: Either grayscale (1 channel) or rgb (3 channels).
+  value: grayscale
+limit_n_samples:
+  value: null
