@@ -42,27 +42,27 @@ models:
   - sgm
 
 sgm:
-  lambda_coeff: 0.1
+  lambda_coeff: 0.08
   # number of noise scales (i.e. time steps in SDE)
-  num_scales: 300
+  num_scales: 400
   sde: simple
   sigma: 25
   sampling_method: pc
   predictor: euler_maruyama
   corrector: none
-  guidance: pigdm
+  guidance: projection
 
 glow:
-  lambda_coeff: 0.5
+  lambda_coeff: 0.4
   step_size: 0.1
-  num_steps: 300
+  num_steps: 400
   prior: z
   optim: adam
   init_std: 0.2
   init_strat: random
 
 gan:
-  lambda_coeff: 20
+  lambda_coeff: 500
   step_size: 0.1
-  num_steps: 300
-  prior: z_squared
+  num_steps: 1000
+  prior: z

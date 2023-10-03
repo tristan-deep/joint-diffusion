@@ -213,7 +213,7 @@ class Denoiser(abc.ABC):
 
         # plot results
         if plot:
-            self.plot(save=save, figsize=self.config.figsize)
+            self.plot(save=save, figsize=self.config.get("figsize"))
 
         # return denoised samples
         return self.denoised_samples
@@ -435,10 +435,10 @@ class Denoiser(abc.ABC):
             if hasattr(self.corruptor, "noise_stddev"):
                 title += f"with $\sigma$={self.corruptor.noise_stddev:.2f}"
         if (
-            self.config.subsample_factor is not None
-            and self.config.subsample_factor > 1
+            self.config.get("subsample_factor") is not None
+            and self.config.get("subsample_factor") > 1
         ):
-            title += f", $\downarrow_s$={self.config.subsample_factor}"
+            title += f", $\downarrow_s$={self.config.get('subsample_factor')}"
         fig.suptitle(title)
 
         fig.tight_layout()
@@ -482,6 +482,8 @@ class Denoiser(abc.ABC):
         if not self.keep_track:
             print("Cannot animate since `keep_track` is set to False!")
             return False
+
+        print("Animating...")
 
         if self.corruptor.model:
             denoised_samples, noise_samples = self.denoised_samples
@@ -770,12 +772,12 @@ class SGMDenoiser(Denoiser):
             keep_track=self.config.keep_track,
             corrector_snr=self.config.snr,
             lambda_coeff=self.config.lambda_coeff,
-            kappa_coeff=self.config.get('kappa_coeff'),
+            kappa_coeff=self.config.get("kappa_coeff"),
             noise_model=self.corruptor.model,
             noise_shape=self.corruptor.image_shape,
-            start_diffusion=self.config.get('ccdf'),
-            sampling_eps=self.config.get('sampling_eps'),
-            early_stop=self.config.get('early_stop'),
+            start_diffusion=self.config.get("ccdf"),
+            sampling_eps=self.config.get("sampling_eps"),
+            early_stop=self.config.get("early_stop"),
         )
 
     @timefunc
@@ -1420,6 +1422,8 @@ def animate_multiple_denoisers(
     Returns:
         plt.Figure: matplotlib figure object
     """
+    print("Animating...")
+
     n_frames = []
     for denoiser in denoisers:
         assert isinstance(denoiser, Denoiser)
