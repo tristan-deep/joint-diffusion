@@ -1,7 +1,6 @@
 """Run script listing and managing all training runs.
 Author(s): Tristan Stevens
 """
-from ast import literal_eval as make_tuple
 from pathlib import Path
 
 import yaml
@@ -102,9 +101,15 @@ def init_config(run_id=None, update_config=None, just_dataset=False, verbose=Tru
             if not just_dataset:
                 if verbose:
                     print_run_info(run_id)
-
-            api = wandb.Api()
-            run = api.run(f"deep_generative/{run_id}")
+            try:
+                api = wandb.Api()
+                run = api.run(f"deep_generative/{run_id}")
+            except Exception as e:
+                raise ValueError(
+                    f"Using wandb directories, but cannot find run {run_id} "
+                    f"for checkpoints and config. Are you sure {run_id} is a folder "
+                    "with a *.yaml file or a valid wandb run id?"
+                ) from e
             group = run.group
             assert group in [
                 "supervised",
