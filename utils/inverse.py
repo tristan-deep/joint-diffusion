@@ -10,6 +10,7 @@ import tensorflow as tf
 import torch
 import tqdm
 from bm3d import BM3DStages, bm3d
+from easydict import EasyDict as edict
 from skimage.restoration import denoise_nl_means
 
 from generators.models import get_model
@@ -19,7 +20,6 @@ from utils.checkpoints import ModelCheckpoint
 from utils.corruptors import Corruptor, get_corruptor
 from utils.metrics import Metrics
 from utils.utils import (
-    SerializeDict,
     convert_torch_tensor,
     get_date_filename,
     save_animation,
@@ -748,7 +748,7 @@ class SGMDenoiser(Denoiser):
             keep_track=keep_track,
             **kwargs,
         )
-        self.config = SerializeDict({**self.config, **self.config.sgm})
+        self.config = edict({**self.config, **self.config.sgm})
 
         self.model = get_model(self.config, training=False)
         ckpt = ModelCheckpoint(self.model, config=self.config)
@@ -770,12 +770,12 @@ class SGMDenoiser(Denoiser):
             keep_track=self.config.keep_track,
             corrector_snr=self.config.snr,
             lambda_coeff=self.config.lambda_coeff,
-            kappa_coeff=self.config.kappa_coeff,
+            kappa_coeff=self.config.get('kappa_coeff'),
             noise_model=self.corruptor.model,
             noise_shape=self.corruptor.image_shape,
-            start_diffusion=self.config.ccdf,
-            sampling_eps=self.config.sampling_eps,
-            early_stop=self.config.early_stop,
+            start_diffusion=self.config.get('ccdf'),
+            sampling_eps=self.config.get('sampling_eps'),
+            early_stop=self.config.get('early_stop'),
         )
 
     @timefunc
@@ -842,7 +842,7 @@ class GANDenoiser(Denoiser):
             **kwargs,
         )
 
-        self.config = SerializeDict({**self.config, **self.config.gan})
+        self.config = edict({**self.config, **self.config.gan})
 
         self.model = get_model(config, training=False)
         ckpt = ModelCheckpoint(self.model, config=config)
@@ -869,7 +869,7 @@ class GANDenoiser(Denoiser):
             initial_latent_vector = tf.random.normal([len(y), latent_dim])
         z_estimate = tf.Variable(initial_latent_vector)
 
-        if self.config.scheduler is not None:
+        if self.config.get("scheduler") is not None:
             lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
                 initial_learning_rate=self.config.step_size,
                 decay_steps=self.config.scheduler.decay_steps,
@@ -970,7 +970,7 @@ class GlowDenoiser(Denoiser):
     ):
         super().__init__(config, dataset, num_img, metrics, keep_track, **kwargs)
 
-        self.config = SerializeDict({**self.config, **self.config.glow})
+        self.config = edict({**self.config, **self.config.glow})
 
         self.device = self.config.device
 
@@ -1044,7 +1044,7 @@ class GlowDenoiser(Denoiser):
 
         # lr_sch_metric = self.config.scheduler.pop('metric', self.metrics.metrics[0])
 
-        if self.config.scheduler is not None:
+        if self.config.get("scheduler") is not None:
             scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
                 optimizer,
                 **self.config.scheduler,
@@ -1383,8 +1383,8 @@ def plot_multiple_denoisers(
         if hasattr(denoiser.corruptor, "noise_stddev"):
             title += f"with $\sigma$={denoiser.corruptor.noise_stddev:.2f}"
     if (
-        denoiser.config.subsample_factor is not None
-        and denoiser.config.subsample_factor > 1
+        denoiser.config.get("subsample_factor") is not None
+        and denoiser.config.get("subsample_factor") > 1
     ):
         title += f", $\downarrow_s$={denoiser.config.subsample_factor}"
     fig.suptitle(title)

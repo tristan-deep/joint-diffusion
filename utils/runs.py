@@ -6,7 +6,7 @@ from pathlib import Path
 import yaml
 
 import wandb
-from utils.utils import SerializeDict
+from easydict import EasyDict as edict
 
 runs = {}
 
@@ -147,9 +147,9 @@ def init_config(run_id=None, update_config=None, just_dataset=False, verbose=Tru
             ]
             config = {k: config.get(k) for k in keep_keys}
 
-        config = SerializeDict(config)
+        config = edict(config)
 
     else:
-        config = SerializeDict(update_config)
+        config = edict(update_config)
 
     return config

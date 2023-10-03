@@ -7,6 +7,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+from easydict import EasyDict as edict
 
 from datasets import get_dataset
 from generators.models import get_model
@@ -14,11 +15,19 @@ from sweeper import Sweeper
 from utils.callbacks import EvalDataset, Monitor
 from utils.checkpoints import ModelCheckpoint
 from utils.gpu_config import set_gpu_usage
-from utils.inverse import (animate_multiple_denoisers, get_denoiser,
-                           get_list_of_denoisers, plot_multiple_denoisers)
+from utils.inverse import (
+    animate_multiple_denoisers,
+    get_denoiser,
+    get_list_of_denoisers,
+    plot_multiple_denoisers,
+)
 from utils.runs import assert_run_exists, init_config
-from utils.utils import (SerializeDict, add_args_to_config,
-                         load_config_from_yaml, set_random_seed, update_dict)
+from utils.utils import (
+    add_args_to_config,
+    load_config_from_yaml,
+    set_random_seed,
+    update_dict,
+)
 
 
 def get_inference_args():
@@ -127,7 +136,7 @@ def sample(config, run_ids):
             )
             continue
         model_config = init_config(run_id, config)
-        model_config = SerializeDict({**model_config, **model_config.get(model_name)})
+        model_config = edict({**model_config, **model_config.get(model_name)})
         assert_run_exists(run_id, model_name)
 
         model = get_model(model_config, training=False)
@@ -194,8 +203,10 @@ def denoise(config, run_ids, dataset):
 
     # plot results of multiple denoisers side by side
     if len(config.models) > 1:
-        plot_multiple_denoisers(denoiser_list, figsize=model_config.figsize)
-        if model_config.keep_track:
+        plot_multiple_denoisers(denoiser_list, figsize=model_config.get("figsize"))
+        if model_config.get("keep_track") and (
+            set(config.models) & {"sgm", "gan", "glow"}
+        ):
             animate_multiple_denoisers(denoiser_list, duration=5)
 
 

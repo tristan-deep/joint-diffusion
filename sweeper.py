@@ -10,10 +10,14 @@ from pathlib import Path
 
 import numpy as np
 from ax.service.ax_client import AxClient
+from easydict import EasyDict as edict
 
 from utils.inverse import get_denoiser
-from utils.utils import (SerializeDict, get_date_filename, get_date_string,
-                         load_config_from_yaml)
+from utils.utils import (
+    get_date_filename,
+    get_date_string,
+    load_config_from_yaml,
+)
 
 
 class Sweeper:
@@ -107,7 +111,7 @@ class Sweeper:
         # this to prevent updating parameters that don't exist
 
         # update denoiser config with new parameters
-        self.denoiser.config = SerializeDict(self.denoiser.config | parameters)
+        self.denoiser.config = edict(self.denoiser.config | parameters)
 
         if self.config.model_name.lower() == "score":
             self.denoiser.set_sampler()

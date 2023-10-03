@@ -3,7 +3,6 @@ Author(s): Tristan Stevens
 """
 import datetime
 import functools
-import json
 import random
 import tarfile
 import time
@@ -18,50 +17,9 @@ import tensorflow as tf
 import torch
 import tqdm
 import yaml
+from easydict import EasyDict as edict
 from matplotlib import animation
 from PIL import Image
-
-
-class SerializeDict(dict):
-    """Serialize a dictionary to index attributes like a class."""
-
-    def __init__(self, dictionary):
-        super().__init__(dictionary)
-        for key, value in self.items():
-            key = str(key)
-            if isinstance(value, dict):
-                value = SerializeDict(value)
-                setattr(self, key, value)
-            elif isinstance(value, (list, tuple)):
-                detected_dict = 0
-                value = convert_to_integers(value)
-                for idx, val in enumerate(value):
-                    if isinstance(val, dict):
-                        val = SerializeDict(val)
-                        self[key][idx] = val
-                        # setattr(self, key, val)
-                        detected_dict += 1
-                if not detected_dict:
-                    setattr(self, key, value)
-            else:
-                setattr(self, key, value)
-
-    def __getattr__(self, attr):
-        return self.get(attr)
-
-    def __setattr__(self, key, value):
-        self.__setitem__(key, value)
-
-    def __setitem__(self, key, value):
-        super().__setitem__(key, value)
-        self.__dict__.update({key: value})
-
-    def __delattr__(self, item):
-        self.__delitem__(item)
-
-    def __delitem__(self, key):
-        super().__delitem__(key)
-        del self.__dict__[key]
 
 
 def timefunc(func):
@@ -308,7 +266,7 @@ def load_config_from_yaml(path, wandb_file=False):
                 else:
                     new_dictionary[key] = value
             dictionary = new_dictionary
-        return SerializeDict(dictionary)
+        return edict(dictionary)
     else:
         return {}
 
@@ -321,8 +279,8 @@ def save_dict_to_yaml(dictionary, path):
 
 def update_dict(dictionary: dict, update: dict):
     """Update a dictionary with another dictionary."""
-    # dictionary = SerializeDict(dictionary | update)
-    dictionary = SerializeDict({**dictionary, **update})
+    # dictionary = edict(dictionary | update)
+    dictionary = edict({**dictionary, **update})
     return dictionary
 
 
