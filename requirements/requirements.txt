@@ -18,6 +18,7 @@ bm3d
 SciencePlots
 cvxopt
 ax-platform
+easydict
 
 tensorflow-gpu<2.11
 tensorflow-addons
