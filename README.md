@@ -90,7 +90,7 @@ python inference.py -e paper/mnist_denoising -t denoise -m bm3d nlm glow gan sgm
 ```
 Or to run a sweep
 ```bash
-python inference.py -e paper/mnist_denoising -t denoise -m glow -s glow_sweep
+python inference.py -e paper/mnist_denoising -t denoise -m sgm -s sgm_sweep
 ```
 
 ## inference configs

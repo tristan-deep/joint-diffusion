@@ -115,7 +115,7 @@ class Corruptor(abc.ABC):
             self.config.image_size = self.image_size
             self.config.translation = self.translation
 
-            if config.subsample_factor:
+            if config.get("subsample_factor"):
                 n_samples = np.prod(self.image_shape) // config.subsample_factor
                 self.image_shape = [n_samples, 1, 1]
                 self.config.image_shape = self.image_shape
