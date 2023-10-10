@@ -19,6 +19,7 @@ SciencePlots
 cvxopt
 ax-platform
 easydict
+gdown
 
 tensorflow-gpu<2.11
 tensorflow-addons
