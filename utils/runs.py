@@ -11,6 +11,7 @@ from easydict import EasyDict as edict
 from utils.utils import download_and_unpack
 
 runs = {}
+_CHECKPOINT_URL = "https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ"
 
 
 def print_run_info(run_id):
@@ -113,9 +114,8 @@ def init_config(run_id=None, update_config=None, just_dataset=False, verbose=Tru
                     "Press enter to continue..."
                 )
 
-                URL = "https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ"
                 save_path = "./checkpoints.zip"
-                download_and_unpack(URL, save_path)
+                download_and_unpack(_CHECKPOINT_URL, save_path)
 
         # assumed to be a wandb run id in this case
         if not Path(run_id).exists():
