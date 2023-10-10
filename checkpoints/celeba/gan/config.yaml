@@ -1,0 +1,29 @@
+adam_betas:
+- 0.5
+- 0.999
+batch_size: 128
+color_mode: rgb
+d_lr: 0.0002
+d_n_channels: 64
+d_steps: 1
+dataset_name: celeba
+epochs: 500
+eval_freq: 1
+g_lr: 0.0002
+g_n_channels: 64
+gp_weight: 4
+image_range:
+- -1
+- 1
+image_shape:
+- 64
+- 64
+- 3
+image_size: 64
+label_sigma: 0.05
+latent_dim: 100
+model_name: gan
+num_img: 16
+patch_size: null
+save_freq: 50
+seed: 123

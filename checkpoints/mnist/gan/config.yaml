@@ -1,0 +1,29 @@
+adam_betas:
+- 0.5
+- 0.999
+batch_size: 128
+color_mode: grayscale
+d_lr: 0.0001
+d_n_channels: 64
+d_steps: 1
+dataset_name: mnist
+epochs: 500
+eval_freq: 1
+g_lr: 0.0001
+g_n_channels: 64
+gp_weight: 10
+image_range:
+- -1
+- 1
+image_shape:
+- 64
+- 64
+- 1
+image_size: 64
+label_sigma: 0.05
+latent_dim: 100
+model_name: gan
+num_img: 16
+patch_size: null
+save_freq: 20
+seed: 123

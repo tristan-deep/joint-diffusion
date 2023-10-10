@@ -41,10 +41,10 @@ class EvalDataset(Callback):
         self.model = model
         self.inference = inference
         self.name = name
-        self.eval_freq = config.eval_freq
-        self.epochs = config.epochs
+        self.eval_freq = config.get("eval_freq")
+        self.epochs = config.get("epochs")
         self.n_eval_batches = config.get("n_eval_batches", 100)
-        self.num_img = config.num_img
+        self.num_img = config.get("num_img")
         self.N = int(np.sqrt(self.num_img))
 
         self.denoiser = None

@@ -5,6 +5,10 @@ wandb/
 old/
 tmp/
 bash/
+
+# Ignore training checkpoint files (except configs)
+checkpoints/**/training_checkpoints/*
+
 # notebooks/
 *.npy
 .vscode/
