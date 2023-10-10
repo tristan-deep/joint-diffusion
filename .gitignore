@@ -5,9 +5,14 @@ wandb/
 old/
 tmp/
 bash/
+data/
 
 # Ignore training checkpoint files (except configs)
 checkpoints/**/training_checkpoints/*
+
+# ignore zips and tars
+*.zip
+*.tar
 
 # notebooks/
 *.npy

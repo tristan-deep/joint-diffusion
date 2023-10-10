@@ -1,6 +1,6 @@
 ## Inference parameters
 # path to data root
-data_root: D:\data
+data_root: .\data
 # dataset
 run_name: mnist
 # checkpoints

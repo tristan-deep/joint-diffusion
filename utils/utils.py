@@ -6,10 +6,12 @@ import functools
 import random
 import tarfile
 import time
+import zipfile
 from pathlib import Path
 
 import cv2
 import cvxopt
+import gdown
 import matplotlib.pyplot as plt
 import numpy as np
 import requests
@@ -482,6 +484,7 @@ def download_file(url, save_path):
     if filename.is_file():
         print("File already exists")
         return filename
+    save_path = Path(save_path)
     save_path.mkdir(parents=True, exist_ok=True)
 
     with requests.get(url, stream=True, timeout=600) as r:
@@ -504,11 +507,20 @@ def download_file(url, save_path):
 
 def download_and_unpack(url, save_path):
     """Downloads *tar.gz from url and saves to save_path."""
-    filename = download_file(url, save_path)
+    if "drive.google.com" in url:
+        filename = gdown.download(url, save_path, quiet=False)
+    else:
+        filename = download_file(url, save_path)
+    filename = Path(filename)
     print(f"Unpacking {filename}")
-    with tarfile.open(filename) as tar:
-        file = tar.extractall(filename.parent)
-    filename.unlink()
+    if filename.suffix == ".zip":
+        with zipfile.ZipFile(filename, "r") as zip_ref:
+            zip_ref.extractall(filename.parent)
+        file = filename.name
+    else:
+        with tarfile.open(filename) as tar:
+            file = tar.extractall(filename.parent)
+        filename.unlink()
     return print(f"Succesfully saved {url} to {file}")
 
 

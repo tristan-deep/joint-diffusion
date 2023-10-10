@@ -8,6 +8,8 @@ import yaml
 import wandb
 from easydict import EasyDict as edict
 
+from utils.utils import download_and_unpack
+
 runs = {}
 
 
@@ -96,6 +98,26 @@ def init_config(run_id=None, update_config=None, just_dataset=False, verbose=Tru
         dict: config object / dict.
     """
     if run_id:
+        if "checkpoints" in run_id:
+            # check if contents of checkpoints folder are downloaded
+            if (
+                not Path(run_id).exists()
+                or len(list(Path(run_id).glob("*[!yaml]"))) == 0
+            ):
+                print(
+                    "Trying to load config from checkpoints folder, but folder does not exist. "
+                    "Downloading checkpoints from Google Drive..."
+                )
+                input(
+                    "This will overwrite everything in the ./checkpoints folder. "
+                    "Press enter to continue..."
+                )
+
+                URL = "https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ"
+                save_path = "./checkpoints.zip"
+                download_and_unpack(URL, save_path)
+
+        # assumed to be a wandb run id in this case
         if not Path(run_id).exists():
             # assert_run_exists(run_id)
             if not just_dataset:

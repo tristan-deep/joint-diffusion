@@ -56,7 +56,7 @@ python inference.py -e paper/celeba_mnist_pigdm -t denoise -m glow sgm
 ## install environment
 Install an environment with TF2.10 and Pytorch, both GPU enabled. All the other dependencies can be found in the [requirements](./requirements) folder. See [installation environment](#installation-environment) for more detailed instructions.
 ## download weights
-Download the pretrained weights [here](link-tba) and copy the [checkpoints](./checkpoints) folder in the root directory to `./checkpoints`. Each dataset is a different folder in the checkpoints directory and all the different models have a separate folder again for each dataset. In those model folder, besides the checkpoint, a training config `.yaml` file is provided for each trained model (necessary for inference, to build the model again).
+Pretrained weights should be automatically downloaded to the [./checkpoints](./checkpoints) folder, but can also be manually downloaded [here]([link-tba](https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ)). Each dataset is a different folder in the checkpoints directory and all the different models have a separate nested folder again for each dataset. In those model folders, besides the checkpoint, a training config `.yaml` file is provided for each trained model (necessary for inference, to build the model again).
 
 ## run inference
 Use the [inference.py](inference.py) script for inference.
