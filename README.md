@@ -19,11 +19,12 @@ If you find the code useful for your research, please cite the paper:
   year={2023}
 }
 ```
-
+<p align="center">
 <figure align="center">
   <img src="./images/joint-diffusion-diagram.png" alt="diagram" style="width: 500;"/>
   <figcaption><strong>Overview of the proposed joint posterior sampling method for removing structured noise using diffusion models.</strong></figcaption>
 </figure>
+</p>
 
 ## Table of contents
 - [Removing Structured Noise with Diffusion Models](#removing-structured-noise-with-diffusion-models)
@@ -45,11 +46,13 @@ Run the following command with  `keep_track` set to `true` in the [config](./con
 ```bash
 python inference.py -e paper/celeba_mnist_pigdm -t denoise -m sgm
 ```
-
+<p align="center">
 <figure align="center">
   <img src="./images/celeba_mnist_sgm_animation.gif" alt="CelebA structured denoising" style="width: 400;"/>
   <figcaption><strong>Structured denoising with the joint diffusion method.</strong></figcaption>
 </figure>
+</p>
+
 
 #### Structured denoising on CelebA with MNIST corruption
 
