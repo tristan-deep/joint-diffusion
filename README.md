@@ -1,21 +1,41 @@
 # Removing Structured Noise with Diffusion Models
-Official repository of the Removing Structured Noise with Diffusion Models paper.
-The joint posterior sampling functions for diffusion models proposed in the paper can be found in [sampling.py](./generators/SGM/sampling.py) and [guidance.py](./generators/SGM/guidance.py).
+Official repository of the Removing Structured Noise with Diffusion Models [paper](https://arxiv.org/abs/2302.05290).
+The joint posterior sampling functions for diffusion models proposed in the paper can be found in [sampling.py](./generators/SGM/sampling.py) and [guidance.py](./generators/SGM/guidance.py). For the interested reader, a more in depth explanation of the method and underlying principles can be found [here](https://tristan-deep.github.io/posts/2023/03/diffusion-models/). Any information on how to setup the code and run inference can be found in the [inference](#inference) section of this README.
 
 If you find the code useful for your research, please cite the paper:
 ```bib
 @article{stevens2023removing,
   title={Removing Structured Noise with Diffusion Models},
-  author={Stevens, Tristan SW and Robert, Jean-Luc and Yu, Faik C and Shin, Jun Seob and van Sloun, Ruud JG},
+  author={Stevens, Tristan S. W. and van Gorp, Hans
+  and Meral, Faik C. and Shin, Junseob and Yu, Jason
+  and Robert, Jean-Luc and van Sloun, Ruud J. G.},
   journal={arXiv preprint arXiv:2302.05290},
   year={2023}
 }
 ```
+<p align="center">
+<td> <img src="./images/joint-diffusion-diagram.png" alt="diagram" style="width: 500;"/>
+<h5 align="center">Overview of the proposed joint posterior sampling method for removing structured noise using diffusion models.</h5> </td>
+</p>
+
+
 ## Table of contents
 * [Results](#structured-denoising)
 * [Inference](#inference)
 * [References](#references)
-# Structured denoising
+
+
+## Structured denoising
+
+Run the following command with  `keep_track` set to `true` in the [config](./configs/inference/paper/celeba_mnist_pigdm.yaml) to run the structured denoising and generate the animation.
+```bash
+python inference.py -e paper/celeba_mnist_pigdm -t denoise -m sgm
+```
+
+<p align="center">
+<td> <img src="./images/celeba_mnist_sgm_animation.gif" alt="CelebA structured denoising" style="width: 400;"/>
+<h5 align="center">Structured denoising with the joint diffusion method</h5> </td>
+</p>
 
 #### Structured denoising on CelebA with MNIST corruption
 <p align="center">
@@ -27,21 +47,7 @@ If you find the code useful for your research, please cite the paper:
 </tr></table>
 </p>
 
-Run the following command with  `keep_track` set to `true` in the config to generate the animation.
-```bash
-python inference.py -e paper/celeba_mnist_pigdm -t denoise -m glow sgm
-```
-
-<p align="center">
-<table><tr>
-<td> <img src="./images/celeba_mnist_denoising_animation.gif" alt="CelebA structured denoising" style="width: 400;"/>
-<h5 align="center">Structured denoising animation</h5> </td>
-<td> <img src="./images/celeba_mnist_sgm_flow_animation.gif" alt="FLOW vs SGM" style="width: 500;"/>
-<h5 align="center">Structured denoising comparison FLOW vs Diffusion</h5> </td>
-</tr></table>
-</p>
-
-#### Projection, DPS, $\Pi$GDM and Flow
+#### Projection, DPS, PiGDM and Flow
 
 <p align="center">
 <table><tr>
@@ -52,16 +58,21 @@ python inference.py -e paper/celeba_mnist_pigdm -t denoise -m glow sgm
 </tr></table>
 </p>
 
-# Inference
-## install environment
+## Inference
+### Install environment
 Install an environment with TF2.10 and Pytorch, both GPU enabled. All the other dependencies can be found in the [requirements](./requirements) folder. See [installation environment](#installation-environment) for more detailed instructions.
-## download weights
-Pretrained weights should be automatically downloaded to the [./checkpoints](./checkpoints) folder, but can also be manually downloaded [here]([link-tba](https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ)). Each dataset is a different folder in the checkpoints directory and all the different models have a separate nested folder again for each dataset. In those model folders, besides the checkpoint, a training config `.yaml` file is provided for each trained model (necessary for inference, to build the model again).
+### Download weights
+Pretrained weights should be automatically downloaded to the [./checkpoints](./checkpoints) folder, but can also be manually downloaded [here](https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ). Each dataset is a different folder in the checkpoints directory and all the different models have a separate nested folder again for each dataset. In those model folders, besides the checkpoint, a training config `.yaml` file is provided for each trained model (necessary for inference, to build the model again).
 
-## run inference
+### Run inference
 Use the [inference.py](inference.py) script for inference.
 ```
-usage: inference.py [-h] [-e EXPERIMENT] [-t {denoise,sample,evaluate,show_dataset}] [-n NUM_IMG] [-m [MODELS ...]] [-s SWEEP]
+usage: inference.py [-h]
+                    [-e EXPERIMENT]
+                    [-t {denoise,sample,evaluate,show_dataset}]
+                    [-n NUM_IMG]
+                    [-m [MODELS ...]]
+                    [-s SWEEP]
 
 options:
   -h, --help            show this help message and exit
@@ -93,14 +104,14 @@ Or to run a sweep
 python inference.py -e paper/mnist_denoising -t denoise -m sgm -s sgm_sweep
 ```
 
-## inference configs
+### Inference configs
 All working inference configs are found in the [./configs/inference/paper](./configs/inference/paper) folder. Path to those inference configs (or just the name of them) should be provided to the `--experiment` flag when calling the [inference.py](inference.py) script.
 
-## data
-Make sure to set the `data_root` parameter in the inference config (at the top). All datasets should be (automatically) downloaded and put as a subdirectory to the specified `data_root`. More information can be found in the [datasets.py](datasets.py) docstrings.
+### Datasets
+Make sure to set the `data_root` parameter in the inference config (for instance this [config](./configs/inference/paper/celeba_mnist_pigdm.yaml)). It is set to the working directory as default. All datasets (for instance CelebA and MNIST) should be (automatically) downloaded and put as a subdirectory to the specified `data_root`. More information can be found in the [datasets.py](datasets.py) docstrings.
 
-## installation environment
-Install packages in a conda environment with TF2 and Pytorch
+### Installation environment
+Install packages in a conda environment with TF2 and Pytorch (latter only needed for the GLOW baseline).
 
 ```bash
 conda create -n joint-diffusion python=3.10
