@@ -19,11 +19,11 @@ If you find the code useful for your research, please cite the paper:
   year={2023}
 }
 ```
-<p align="center">
-<td> <img src="./images/joint-diffusion-diagram.png" alt="diagram" style="width: 500;"/>
-<h5 align="center">Overview of the proposed joint posterior sampling method for removing structured noise using diffusion models.</h5> </td>
-</p>
 
+<figure align="center">
+  <img src="./images/joint-diffusion-diagram.png" alt="diagram" style="width: 500;"/>
+  <figcaption><strong>Overview of the proposed joint posterior sampling method for removing structured noise using diffusion models.</strong></figcaption>
+</figure>
 
 ## Table of contents
 - [Removing Structured Noise with Diffusion Models](#removing-structured-noise-with-diffusion-models)
@@ -46,10 +46,10 @@ Run the following command with  `keep_track` set to `true` in the [config](./con
 python inference.py -e paper/celeba_mnist_pigdm -t denoise -m sgm
 ```
 
-<p align="center">
-<td> <img src="./images/celeba_mnist_sgm_animation.gif" alt="CelebA structured denoising" style="width: 400;"/>
-<h5 align="center">Structured denoising with the joint diffusion method</h5> </td>
-</p>
+<figure align="center">
+  <img src="./images/celeba_mnist_sgm_animation.gif" alt="CelebA structured denoising" style="width: 400;"/>
+  <figcaption><strong>Structured denoising with the joint diffusion method.</strong></figcaption>
+</figure>
 
 #### Structured denoising on CelebA with MNIST corruption
 
