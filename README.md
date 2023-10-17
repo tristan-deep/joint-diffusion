@@ -20,10 +20,18 @@ If you find the code useful for your research, please cite the paper:
 
 
 ## Table of contents
-* [Results](#structured-denoising)
-* [Inference](#inference)
-* [References](#references)
-
+- [Removing Structured Noise with Diffusion Models](#removing-structured-noise-with-diffusion-models)
+  - [Table of contents](#table-of-contents)
+  - [Structured denoising](#structured-denoising)
+      - [Structured denoising on CelebA with MNIST corruption](#structured-denoising-on-celeba-with-mnist-corruption)
+      - [Projection, DPS, PiGDM and Flow](#projection-dps-pigdm-and-flow)
+  - [Getting started](#getting-started)
+    - [Install environment](#install-environment)
+    - [Download weights](#download-weights)
+    - [Run inference](#run-inference)
+    - [Inference configs](#inference-configs)
+    - [Datasets](#datasets)
+    - [Installation environment](#installation-environment)
 
 ## Structured denoising
 
@@ -58,7 +66,7 @@ python inference.py -e paper/celeba_mnist_pigdm -t denoise -m sgm
 </tr></table>
 </p>
 
-## Inference
+## Getting started
 ### Install environment
 Install an environment with TF2.10 and Pytorch, both GPU enabled. All the other dependencies can be found in the [requirements](./requirements) folder. See [installation environment](#installation-environment) for more detailed instructions.
 ### Download weights
