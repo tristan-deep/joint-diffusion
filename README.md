@@ -1,3 +1,9 @@
+<style>
+td, th {
+   border: none!important;
+}
+</style>
+
 # Removing Structured Noise with Diffusion Models
 Official repository of the Removing Structured Noise with Diffusion Models [paper](https://arxiv.org/abs/2302.05290).
 The joint posterior sampling functions for diffusion models proposed in the paper can be found in [sampling.py](./generators/SGM/sampling.py) and [guidance.py](./generators/SGM/guidance.py). For the interested reader, a more in depth explanation of the method and underlying principles can be found [here](https://tristan-deep.github.io/posts/2023/03/diffusion-models/). Any information on how to setup the code and run inference can be found in the [inference](#inference) section of this README.
@@ -46,25 +52,31 @@ python inference.py -e paper/celeba_mnist_pigdm -t denoise -m sgm
 </p>
 
 #### Structured denoising on CelebA with MNIST corruption
-<p align="center">
-<table><tr>
-<td> <img src="./images/comparison_celeba_mnist.png" alt="CelebA" style="width: 500;"/>
-<h5 align="center">CelebA</h5> </td>
-<td> <img src="./images/comparison_celeba_mnist_ood.png" alt="OOD" style="width: 500;"/>
-<h5 align="center">Out-of-distribution dataset</h5> </td>
-</tr></table>
-</p>
+
+<table>
+  <tr>
+    <td><img src="./images/comparison_celeba_mnist.png" alt="CelebA" style="width: 500;"></td>
+    <td><img src="./images/comparison_celeba_mnist_ood.png" alt="OOD"  style="width: 500;"></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>CelebA</strong></td>
+    <td align="center"><strong>Out-of-distribution dataset</strong></td>
+  </tr>
+</table>
 
 #### Projection, DPS, PiGDM and Flow
 
-<p align="center">
-<table><tr>
-<td> <img src="./images/comparison_celeba_mnist_proj_dps_pidgm.png" alt="CelebA" style="width: 500;"/>
-<h5 align="center">CelebA</h5> </td>
-<td> <img src="./images/comparison_celeba_mnist_proj_dps_pidgm_ood.png" alt="OOD" style="width: 500;"/>
-<h5 align="center">Out-of-distribution dataset</h5> </td>
-</tr></table>
-</p>
+<table>
+  <tr>
+    <td><img src="./images/comparison_celeba_mnist_proj_dps_pidgm.png" alt="CelebA" style="width: 500;"></td>
+    <td><img src="./images/comparison_celeba_mnist_proj_dps_pidgm_ood.png" alt="OOD"  style="width: 500;"></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>CelebA</strong></td>
+    <td align="center"><strong>Out-of-distribution dataset</strong></td>
+  </tr>
+</table>
+
 
 ## Getting started
 ### Install environment
