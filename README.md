@@ -1,4 +1,15 @@
 # Removing Structured Noise with Diffusion Models
+
+### [Code](https://github.com/tristan-deep/joint-diffusion) | [Paper](https://arxiv.org/abs/2302.05290) | [Project Page](https://tristan-deep.github.io/publication/diffusion_paper) | [Blog](https://tristan-deep.github.io/posts/2023/03/diffusion-models/) | [Weights](https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ)
+
+[Tristan Stevens](https://tristan-deep.github.io/),
+[Hans van Gorp](https://www.tue.nl/en/research/researchers/hans-van-gorp/),
+[Can Meral](https://scholar.google.com/citations?user=kX0KaeUAAAAJ&hl=en&oi=sra),
+[Junseob Shin](https://scholar.google.com/citations?user=R2cdBMsAAAAJ),
+[Jason Yu](https://ieeexplore.ieee.org/author/37088639661),
+[Jean-Luc Robert](https://scholar.google.com/citations?hl=en&user=BrY9ygYAAAAJ)
+[Ruud van Sloun](https://www.tue.nl/en/research/researchers/ruud-van-sloun/)<br>
+
 Official repository of the Removing Structured Noise with Diffusion Models [paper](https://arxiv.org/abs/2302.05290).
 The joint posterior sampling functions for diffusion models proposed in the paper can be found in [sampling.py](./generators/SGM/sampling.py) and [guidance.py](./generators/SGM/guidance.py). For the interested reader, a more in depth explanation of the method and underlying principles can be found [here](https://tristan-deep.github.io/posts/2023/03/diffusion-models/). Any information on how to setup the code and run inference can be found in the [getting started](#getting-started) section of this README.
 
@@ -22,6 +33,7 @@ If you find the code useful for your research, please cite the paper:
 
 ## Table of contents
 - [Removing Structured Noise with Diffusion Models](#removing-structured-noise-with-diffusion-models)
+    - [Code | Paper | Project Page | Blog | Weights](#code--paper--project-page--blog--weights)
   - [Table of contents](#table-of-contents)
   - [Structured denoising](#structured-denoising)
       - [Structured denoising on CelebA with MNIST corruption](#structured-denoising-on-celeba-with-mnist-corruption)
