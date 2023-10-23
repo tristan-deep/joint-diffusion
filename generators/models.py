@@ -112,7 +112,7 @@ def get_model(config, run_eagerly=False, plot_summary=False, training=True):
             }
 
     if model_name.lower() == "ncsnv2":
-        model = NCSNv2(config, name="ncsnv2", conditioned=False)
+        model = NCSNv2(config, name="ncsnv2")
 
         if training:
             compile_args = {
