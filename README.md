@@ -7,7 +7,7 @@
 [Can Meral](https://scholar.google.com/citations?user=kX0KaeUAAAAJ&hl=en&oi=sra),
 [Junseob Shin](https://scholar.google.com/citations?user=R2cdBMsAAAAJ),
 [Jason Yu](https://ieeexplore.ieee.org/author/37088639661),
-[Jean-Luc Robert](https://scholar.google.com/citations?hl=en&user=BrY9ygYAAAAJ)
+[Jean-Luc Robert](https://scholar.google.com/citations?hl=en&user=BrY9ygYAAAAJ),
 [Ruud van Sloun](https://www.tue.nl/en/research/researchers/ruud-van-sloun/)<br>
 
 Official repository of the Removing Structured Noise with Diffusion Models [paper](https://arxiv.org/abs/2302.05290).
