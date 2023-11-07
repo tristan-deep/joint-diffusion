@@ -5,18 +5,17 @@ import argparse
 from pathlib import Path
 
 import matplotlib
+import wandb
 from keras.callbacks import ReduceLROnPlateau
 from wandb.keras import WandbCallback
 
-import wandb
 from datasets import get_dataset
 from generators.models import get_model
 from utils.callbacks import EvalDataset, Monitor
 from utils.checkpoints import ModelCheckpoint
 from utils.git_info import get_git_summary
 from utils.gpu_config import set_gpu_usage
-from utils.utils import (check_model_library, random_augmentation,
-                         set_random_seed)
+from utils.utils import check_model_library, random_augmentation, set_random_seed
 
 matplotlib.use("Agg")
 
@@ -24,7 +23,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "-c",
     "--config",
-    default="configs/training/glow_celeba.yaml",
+    default="configs/training/score_celeba.yaml",
     type=str,
     help="relative path to config file",
 )
