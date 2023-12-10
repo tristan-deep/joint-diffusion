@@ -238,7 +238,7 @@ def evaluate(config, run_ids, dataset):
         config=config,
         inference=True,
         name=config.experiment,
-        eval_folder=config.eval_folder,
+        eval_folder=config.get("eval_folder"),
     )
     config.metrics = "all"
     config.keep_track = False

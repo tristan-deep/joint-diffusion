@@ -89,7 +89,7 @@ class Corruptor(abc.ABC):
         if self.model:
             if (
                 (config.get("disable_corruptor_model"))
-                or (config.denoiser is None)
+                or (config.get("denoiser") is None)
                 or (config.denoiser.lower() not in ["sgm", "glow"])
             ):
                 self.model = False
