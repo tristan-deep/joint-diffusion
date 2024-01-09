@@ -7,8 +7,13 @@ import tqdm
 from keras import Model
 from keras.layers import Input
 
-from generators.layers import (ConvBlock, RefineBlock, ResidualBlock,
-                               get_activation, get_normalization)
+from generators.layers import (
+    ConvBlock,
+    RefineBlock,
+    ResidualBlock,
+    get_activation,
+    get_normalization,
+)
 from generators.SGM import sde_lib
 from generators.SGM.sampling import ScoreSampler
 
@@ -123,11 +128,11 @@ class ScoreNet(Model):
         super().__init__()
         self.config = config
 
-        self.image_shape = config.image_shape
+        self.image_shape = self.config.image_shape
 
         self.set_sde(config)
 
-        self.sampling_shape = (config.num_img, *config.image_shape)
+        self.sampling_shape = (self.config.get("num_img"), *self.config.image_shape)
         self.sampler = ScoreSampler(
             model=self,
             sde=self.sde,
