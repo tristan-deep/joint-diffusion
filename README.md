@@ -45,6 +45,7 @@ If you find the code useful for your research, please cite the paper:
     - [Inference configs](#inference-configs)
     - [Datasets](#datasets)
     - [Installation environment](#installation-environment)
+  - [References](#references)
 
 ## Structured denoising
 
@@ -168,3 +169,8 @@ To install the other dependencies
 ```bash
 pip install -r requirements/requirements.txt
 ```
+
+## References
+- Our paper https://arxiv.org/abs/2302.05290
+- Diffusion model implementation adopted from https://github.com/yang-song/score_sde_pytorch
+- Glow and GAN implementations from https://github.com/CACTuS-AI/GlowIP
