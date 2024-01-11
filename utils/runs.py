@@ -3,15 +3,17 @@ Author(s): Tristan Stevens
 """
 from pathlib import Path
 
-import yaml
-
 import wandb
+import yaml
 from easydict import EasyDict as edict
 
 from utils.utils import download_and_unpack
 
 runs = {}
-_CHECKPOINT_URL = "https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ"
+_CHECKPOINT_URL = (
+    "https://drive.google.com/uc?export=download&confirm=pbef&id="
+    "1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ"
+)
 
 
 def print_run_info(run_id):
