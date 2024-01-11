@@ -128,19 +128,19 @@ class ScoreNet(Model):
         super().__init__()
         self.config = config
 
-        self.image_shape = self.config.image_shape
+        self.image_shape = config.image_shape
 
         self.set_sde(config)
 
-        self.sampling_shape = (self.config.get("num_img"), *self.config.image_shape)
+        self.sampling_shape = (config.get("num_img"), *config.image_shape)
         self.sampler = ScoreSampler(
             model=self,
             sde=self.sde,
             image_shape=self.image_shape,
-            sampling_method=self.config.sampling_method,
-            predictor=self.config.predictor,
-            corrector=self.config.corrector,
-            corrector_snr=self.config.snr,
+            sampling_method=config.sampling_method,
+            predictor=config.predictor,
+            corrector=config.corrector,
+            corrector_snr=config.snr,
         )
 
         score_backbone = self.config.get("score_backbone", "NCUNet")
