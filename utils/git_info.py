@@ -4,6 +4,7 @@ Author(s): Tristan Stevens, Iris Huijben
 
 import subprocess
 import sys
+import warnings
 
 
 def get_git_commit_hash():
@@ -19,15 +20,22 @@ def get_git_branch():
     )
 
 
-def get_git_summary():
-    """Get summary of git info."""
+def get_git_summary(verbose=False):
+    """Get summary of git info.
+    Args:
+        verbose (bool, optional): print git summary. Defaults to False.
+    Returns:
+        str: git summary string.
+            contains branch name and commit hash.
+    """
     try:
-        print("Git branch and commit: ")
         git_summary = get_git_branch() + "=" + get_git_commit_hash()
-        print(git_summary)
+        if verbose:
+            print("Git branch and commit: ")
+            print(git_summary)
+        return git_summary
     except Exception:
-        print("Cannot find Git")
-    return git_summary
+        warnings.warn("Cannot find Git")
 
 
 if __name__ == "__main__":

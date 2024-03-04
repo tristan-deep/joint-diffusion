@@ -78,7 +78,10 @@ def set_gpu_usage(device=None):
         available_gpu_ids
     ), "Number of selected gpus cannot be greater than the amount of available gpus"
 
-    mem = get_gpu_memory()
+    try:
+        mem = get_gpu_memory()
+    except:
+        mem = np.zeros(len(available_gpu_ids))
 
     assert len(mem) == len(available_gpu_ids), (
         "Some GPUs are not seen by Tensorflow (probably ones with too little tensor cores).\n"
