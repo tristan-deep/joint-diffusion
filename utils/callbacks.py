@@ -332,7 +332,6 @@ class EvalDataset(Callback):
                 denoised_samples = self.denoiser(
                     noisy_samples=noisy_samples,
                     target_samples=target_samples,
-                    preprocess=False,
                     plot=False,
                 )
                 metrics.append(self.denoiser.eval_denoised)
