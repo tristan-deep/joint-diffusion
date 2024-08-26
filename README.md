@@ -1,6 +1,6 @@
 # Removing Structured Noise with Diffusion Models
 
-### [Code](https://github.com/tristan-deep/joint-diffusion) | [Paper](https://arxiv.org/abs/2302.05290) | [Project Page](https://tristan-deep.github.io/publication/diffusion_paper) | [Blog](https://tristan-deep.github.io/posts/2023/03/diffusion-models/) | [Weights](https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ)
+### [Code](https://github.com/tristan-deep/joint-diffusion) | [Paper](https://arxiv.org/abs/2302.05290) | [Project Page](https://tristan-deep.github.io/publication/diffusion_paper) | [Blog](https://tristan-deep.github.io/posts/2023-02-11-diffusion-models/) | [Weights](https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ)
 
 [Tristan Stevens](https://tristan-deep.github.io/),
 [Hans van Gorp](https://www.tue.nl/en/research/researchers/hans-van-gorp/),
