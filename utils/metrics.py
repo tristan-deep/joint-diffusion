@@ -8,6 +8,9 @@ import tensorflow as tf
 
 from utils.utils import convert_torch_tensor, tf_tensor_to_torch, translate
 
+# create variable to store lpips_loss instance
+_lpips_loss = None
+
 
 def mean_squared_error(y_true, y_pred, **kwargs):
     """Gives the MSE for two input tensors.
@@ -97,10 +100,18 @@ def perceptual_similarity_index(y_true, y_pred, image_range, **kwargs):
     y_true = tf_tensor_to_torch(y_true, device="cpu")
     y_pred = tf_tensor_to_torch(y_pred, device="cpu")
 
+    lpips_loss = get_lpips_loss()
+
     return tf.squeeze(convert_torch_tensor(lpips_loss(y_true, y_pred), "tensorflow"))
 
 
-lpips_loss = lpips.LPIPS(net="alex")
+def get_lpips_loss():
+    """Lazy loading of lpips loss to avoid unnecessary imports"""
+    global _lpips_loss
+    if _lpips_loss is None:
+        _lpips_loss = lpips.LPIPS(net="alex")
+    return _lpips_loss
+
 
 METRIC_FUNCS = dict(
     mse=mean_squared_error,
