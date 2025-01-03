@@ -1,10 +1,12 @@
 """Metric functions
 Author(s): Tristan Stevens
 """
+
+import lpips
 import numpy as np
 import tensorflow as tf
 
-from utils.utils import translate
+from utils.utils import convert_torch_tensor, tf_tensor_to_torch, translate
 
 
 def mean_squared_error(y_true, y_pred, **kwargs):
@@ -79,18 +81,42 @@ def structural_similarity_index(
     )
 
 
+@tf.autograph.experimental.do_not_convert
+def perceptual_similarity_index(y_true, y_pred, image_range, **kwargs):
+    """Gives the perceptual similarity index (LPIPS) for two input tensors.
+    Args:
+        y_true: tensor [None, height, width]
+        y_pred: tensor [None, height, width]
+        image_range: The dynamic range of the images
+    Returns:
+        lpips: perceptual similarity index between y_true and y_pred.
+    """
+    # first normalize to [-1, 1] given image_range argument
+    y_true = translate(y_true, image_range, [-1, 1])
+    y_pred = translate(y_pred, image_range, [-1, 1])
+    y_true = tf_tensor_to_torch(y_true, device="cpu")
+    y_pred = tf_tensor_to_torch(y_pred, device="cpu")
+
+    return tf.squeeze(convert_torch_tensor(lpips_loss(y_true, y_pred), "tensorflow"))
+
+
+lpips_loss = lpips.LPIPS(net="alex")
+
 METRIC_FUNCS = dict(
     mse=mean_squared_error,
     mae=mean_absolute_error,
     psnr=peak_signal_to_noise_ratio,
     ssim=structural_similarity_index,
+    lpips=perceptual_similarity_index,
 )
+
 
 MINIMIZE = dict(
     mse=True,
     mae=True,
     psnr=False,
     ssim=False,
+    lpips=True,
 )
 
 
@@ -100,7 +126,7 @@ def reduce_mean(array, keep_batch_dim=True):
     """
     if keep_batch_dim:
         axis = len(array.shape)
-        axis = range(axis)[1:]
+        axis = tuple(range(axis)[-3:])
     else:
         axis = None
     return tf.reduce_mean(array, axis=axis)
@@ -182,6 +208,7 @@ class Metrics:
                 y_true,
                 y_pred,
                 max_val=self.image_range[1],
+                image_range=self.image_range,
             )
 
             if average_batch:

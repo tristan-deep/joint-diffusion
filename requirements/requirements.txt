@@ -1,3 +1,4 @@
+# NOTE: works in combinations with the installations in the Dockerfile
 matplotlib
 numpy
 scipy
@@ -13,16 +14,16 @@ pyyaml
 tabulate
 ipykernel
 opencv-python
+pydicom
 wandb
 bm3d
 SciencePlots
 cvxopt
-ax-platform
+wget
+requests
 easydict
 gdown
+lpips
 
-tensorflow-gpu<2.11
-tensorflow-addons
-tensorflow-gan
-tensorflow-datasets
-tensorflow-estimator
+pylint
+pytest
