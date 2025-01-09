@@ -1,10 +1,17 @@
 """Inference script for generative models and various inverse tasks
 Author(s): Tristan Stevens
 """
-import argparse
+
 import os
+import warnings
+
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+warnings.filterwarnings("ignore", category=UserWarning, module="tensorflow_addons")
+
+import argparse
 from pathlib import Path
 
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from easydict import EasyDict as edict
@@ -34,7 +41,6 @@ def get_inference_args():
     """Parse input arguments for inference script."""
     task_choices = [
         "denoise",
-        "sequence_denoise",
         "sample",
         "evaluate",
         "show_dataset",
@@ -341,4 +347,5 @@ if __name__ == "__main__":
     elif args.task == "run_metrics":
         run_metrics(config)
 
-    plt.show()
+    if matplotlib.get_backend().lower() != "agg":
+        plt.show()

@@ -1,6 +1,7 @@
 """Sweep over hyperparameters using ax platform
 Author(s): Tristan Stevens
 """
+
 import os
 
 os.environ["PYDEVD_WARN_EVALUATION_TIMEOUT"] = "10000"
@@ -13,11 +14,7 @@ from ax.service.ax_client import AxClient
 from easydict import EasyDict as edict
 
 from utils.inverse import get_denoiser
-from utils.utils import (
-    get_date_filename,
-    get_date_string,
-    load_config_from_yaml,
-)
+from utils.utils import get_date_filename, get_date_string, load_config_from_yaml
 
 
 class Sweeper:
@@ -111,7 +108,7 @@ class Sweeper:
         # this to prevent updating parameters that don't exist
 
         # update denoiser config with new parameters
-        self.denoiser.config = edict(self.denoiser.config | parameters)
+        self.denoiser.config = edict({**self.denoiser.config, **parameters})
 
         if self.config.model_name.lower() == "score":
             self.denoiser.set_sampler()
@@ -120,7 +117,6 @@ class Sweeper:
             noisy_samples=self.noisy_samples,
             target_samples=self.target_samples,
             plot=self.allow_plot,
-            preprocess=False,
         )
 
         objective = np.mean(self.denoiser.eval_denoised[self.objective])

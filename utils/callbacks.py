@@ -1,6 +1,7 @@
 """Callbacks
 Author(s): Tristan Stevens
 """
+
 import shutil
 from pathlib import Path
 
@@ -11,6 +12,7 @@ import numpy as np
 import scienceplots
 import tensorflow as tf
 import tqdm
+import wandb
 import yaml
 from keras.callbacks import Callback
 from matplotlib.lines import Line2D
