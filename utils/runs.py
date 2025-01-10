@@ -1,19 +1,20 @@
 """Run script listing and managing all training runs.
 Author(s): Tristan Stevens
 """
+
 from pathlib import Path
 
 import wandb
 import yaml
 from easydict import EasyDict as edict
-
-from utils.utils import download_and_unpack
+from huggingface_hub import HfApi, login, snapshot_download
 
 runs = {}
-_CHECKPOINT_URL = (
-    "https://drive.google.com/uc?export=download&confirm=pbef&id="
-    "1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ"
-)
+
+
+def yellow(text):
+    """Color text yellow."""
+    return f"\033[33m{text}\033[0m"
 
 
 def print_run_info(run_id):
@@ -74,6 +75,9 @@ def assert_run_exists(run_id, model=None):
     # run_id is a checkpoint folder -> no assertion error
     if Path(run_id).exists():
         return
+    # run_id is a huggingface model -> no assertion error
+    if run_id.startswith("hf://"):
+        return
 
     # run_id is not a path, and the model is known, therefore
     # the run_id should be listed in the runs, if not -> assertion error.
@@ -86,6 +90,8 @@ def init_config(run_id=None, update_config=None, just_dataset=False, verbose=Tru
     Args:
         run_id (str, optional): wandb run_id to load training config from.
             Or can also be a path to where config (*.yaml) is stored.
+            Finally can also be a string `hf://<repo_id>` to download
+            a model from huggingface hub.
             Defaults to None.
         update_config (dict, optional): if run_id is provided, loaded config
             is combined with update_config. Else, just use update_config.
@@ -101,25 +107,20 @@ def init_config(run_id=None, update_config=None, just_dataset=False, verbose=Tru
         dict: config object / dict.
     """
     if run_id:
-        if "checkpoints" in run_id:
-            # check if contents of checkpoints folder are downloaded
-            if (
-                not Path(run_id).exists()
-                or len(list(Path(run_id).glob("*[!yaml]"))) == 0
-            ):
-                print(
-                    "Trying to load config from checkpoints folder, but folder does not exist. "
-                    "Downloading checkpoints from Google Drive..."
-                )
-                input(
-                    "This will overwrite everything in the ./checkpoints folder. "
-                    "Press enter to continue..."
-                )
+        # Download from huggingface hub
+        if run_id.startswith("hf://"):
+            repo_id = run_id.split("hf://")[1]
+            login(new_session=False)
 
-                save_path = "./checkpoints.zip"
-                download_and_unpack(_CHECKPOINT_URL, save_path)
+            url = "https://huggingface.co/" + repo_id
+            print(f"Using model from huggingface hub: {yellow(url)}")
 
-        # assumed to be a wandb run id in this case
+            run_id = snapshot_download(
+                repo_id=repo_id,
+                repo_type="model",
+            )
+
+        # get config from wandb if not a path
         if not Path(run_id).exists():
             # assert_run_exists(run_id)
             if not just_dataset:

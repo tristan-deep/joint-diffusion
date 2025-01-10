@@ -20,10 +20,9 @@ from matplotlib.patches import Polygon
 from mpl_toolkits.axes_grid1 import ImageGrid
 from skimage import io as sio
 
-import wandb
 from utils.corruptors import get_corruptor
 from utils.inverse import _MODEL_NAMES, Denoiser, get_list_of_denoisers
-from utils.metrics import Metrics
+from utils.metrics import MINIMIZE, Metrics
 from utils.utils import get_date_filename, make_unique_path, tensor_to_images, translate
 
 
@@ -172,7 +171,9 @@ class EvalDataset(Callback):
     def run_metrics(self):
         self.metric_path = self.eval_folder_path / "metrics.npy"
         if self.metric_path.is_file():
-            raise ValueError("Metrics already exist, please move first")
+            raise ValueError(
+                f"Metrics already exist, please move first: {self.metric_path}"
+            )
 
         folders = self.eval_folder_path.glob("*")
         folders = [f for f in folders if f.is_dir()]
@@ -653,7 +654,7 @@ class EvalDataset(Callback):
                 Defaults to False.
         """
         if plot_metrics is None:
-            plot_metrics = ["psnr", "ssim"]
+            plot_metrics = ["psnr", "lpips"]
         if box_colors is None:
             box_colors = [
                 "darkkhaki",
@@ -761,6 +762,10 @@ class EvalDataset(Callback):
         # Set the axes ranges and axes labels
         if "ssim" in metrics:
             axes["ssim"].set_ylim(0, 1)
+        if "lpips" in metrics:
+            axes["lpips"].set_ylim(0, 1)
+        if "psnr" in metrics:
+            axes["psnr"].set_ylim(3, 32)
 
         start_1 = 1
         start_end = M * N - 1
@@ -782,6 +787,26 @@ class EvalDataset(Callback):
             if upper_labels:
                 ylims = axes[axs].get_ylim()
                 axes[axs].set_ylim(ylims[0], ylims[1] * 1.06)
+
+        # Add an arrow up or down on the y-axis below or above the label
+        # if the metric is better when higher or lowerd
+        for metric, x_pos in zip(metrics, (-0.12, 1.12)):
+            if MINIMIZE[metric]:
+                arrow = "↓"
+                y_pos = 0.35
+            else:
+                arrow = "↑"
+                y_pos = 0.65
+
+            axes[metric].text(
+                x_pos,
+                y_pos,
+                arrow,
+                transform=axes[metric].transAxes,
+                fontsize=8,
+                color=box_colors[metrics.index(metric)],
+                ha="center",
+            )
 
         if legend:
             custom_lines = [

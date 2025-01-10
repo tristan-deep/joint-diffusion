@@ -5,9 +5,9 @@ data_root: .\data
 run_name: celeba
 # path to data root
 run_id:
-  sgm: ./checkpoints/celeba/sgm
-  glow: ./checkpoints/celeba/glow
-  gan: ./checkpoints/celeba/gan
+  sgm: hf://tristan-deep/joint-diffusion-celeba
+  glow: hf://tristan-deep/glow-celeba
+  gan: hf://tristan-deep/gan-celeba
 # device
 device: 0
 # random seed
@@ -53,7 +53,7 @@ sgm:
   predictor: euler_maruyama
   corrector: none
   guidance: projection
-  corruptor_run_id: ./checkpoints/mnist-rgb/sgm
+  corruptor_run_id: hf://tristan-deep/joint-diffusion-mnist-rgb
   batch_size: 25
 
 glow:
@@ -64,7 +64,7 @@ glow:
   optim: adam
   init_std: 0.1
   init_strat: observation
-  corruptor_run_id: ./checkpoints/mnist-rgb/glow
+  corruptor_run_id: hf://tristan-deep/glow-mnist-rgb
   show_optimization_progress: true
   batch_size: 6
 

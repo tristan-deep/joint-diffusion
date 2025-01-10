@@ -20,10 +20,10 @@ bm3d
 SciencePlots
 cvxopt
 wget
-requests
 easydict
 gdown
 lpips
+huggingface_hub
 
 pylint
 pytest
