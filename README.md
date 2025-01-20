@@ -1,6 +1,6 @@
 # Removing Structured Noise with Diffusion Models
 
-### [Code](https://github.com/tristan-deep/joint-diffusion) | [Paper](https://arxiv.org/abs/2302.05290) | [Project Page](https://tristan-deep.github.io/publication/diffusion_paper) | [Blog](https://tristan-deep.github.io/posts/2023-02-11-diffusion-models/) | [Weights](https://huggingface.co/collections/tristan-deep/removing-structured-noise-using-diffusion-models-67802b581433e4ecf48e49bc)
+### [Code](https://github.com/tristan-deep/joint-diffusion) | [Paper](https://arxiv.org/abs/2302.05290) | [Blog](https://tristan-deep.github.io/posts/2023-02-11-diffusion-models/) | [Weights](https://huggingface.co/collections/tristan-deep/removing-structured-noise-using-diffusion-models-67802b581433e4ecf48e49bc)
 
 [Tristan Stevens](https://tristan-deep.github.io/),
 [Hans van Gorp](https://www.tue.nl/en/research/researchers/hans-van-gorp/),
@@ -14,7 +14,7 @@
 > Weights are now hosted on [Hugging Face](https://huggingface.co/collections/tristan-deep/removing-structured-noise-using-diffusion-models-67802b581433e4ecf48e49bc) 🤗.
 
 Official repository of the Removing Structured Noise with Diffusion Models [paper](https://arxiv.org/abs/2302.05290).
-The joint posterior sampling functions for diffusion models proposed in the paper can be found in [sampling.py](./generators/SGM/sampling.py) and [guidance.py](./generators/SGM/guidance.py). For the interested reader, a more in depth explanation of the method and underlying principles can be found [here](https://tristan-deep.github.io/posts/2023/03/diffusion-models/). Any information on how to setup the code and run inference can be found in the [getting started](#getting-started) section of this README.
+The joint posterior sampling functions for diffusion models proposed in the paper can be found in [sampling.py](./generators/SGM/sampling.py) and [guidance.py](./generators/SGM/guidance.py). For the interested reader, a more in depth explanation of the method and underlying principles can be found [here](https://tristan-deep.github.io/posts/2023/03/diffusion-models/). Any information on how to setup the code and run inference can be found in the [getting started](#getting-started) section.
 
 If you find the code useful for your research, please cite [the paper](https://arxiv.org/abs/2302.05290):
 ```bib
