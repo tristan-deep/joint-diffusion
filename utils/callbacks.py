@@ -188,6 +188,9 @@ class EvalDataset(Callback):
             "nlm",
             "bm3d",
             "wvtcs",
+            "sgm_proj_gaussian",
+            "sgm_dps_gaussian",
+            "sgm_pigdm_gaussian",
             "gan",
             "glow",
             "sgm",
@@ -427,7 +430,7 @@ class EvalDataset(Callback):
         transpose=True,
         save=True,
         metric_color="white",
-        double_column=True,
+        double_column=False,
     ) -> plt.Figure:
         """Plot multiple denoised results from different denoisers.
 

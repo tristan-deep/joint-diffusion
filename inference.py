@@ -302,6 +302,10 @@ def plot_results(config):
 
 def run_metrics(config):
     """Compute metrics on evaluation dataset."""
+    assert config.get(
+        "eval_folder"
+    ), "Please run with --eval_folder flag when task is 'run_metrics'"
+
     cb = EvalDataset(
         dataset=None, config=config, inference=True, eval_folder=config.eval_folder
     )

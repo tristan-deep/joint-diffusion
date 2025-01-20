@@ -1,6 +1,7 @@
 """Inverse tasks
 Author(s): Tristan Stevens
 """
+
 import abc
 from pathlib import Path
 
@@ -35,9 +36,12 @@ _MODEL_NAMES = {
     "gan": "GAN",
     "glow": "FLOW",
     "sgm": "DIFFUSION",
-    "sgm_dps": "DPS",
-    "sgm_proj": "Proj.",
-    "sgm_pigdm": "$\Pi$GDM",
+    "sgm_dps": "Ours",
+    "sgm_proj": "Ours",
+    "sgm_pigdm": "Ours",
+    "sgm_dps_gaussian": "DPS",
+    "sgm_proj_gaussian": "Proj.",
+    "sgm_pigdm_gaussian": "$\Pi$GDM",
     "bm3d": "BM3D",
     "nlm": "NLM",
     "wvtcs": "LASSO",
@@ -71,7 +75,14 @@ def get_denoiser(name):
 
 def get_list_of_denoisers():
     """Get all allowed denoiser names."""
-    return list(_DENOISERS.keys()) + ["sgm_proj", "sgm_dps", "sgm_pigdm"]
+    return list(_DENOISERS.keys()) + [
+        "sgm_proj",
+        "sgm_dps",
+        "sgm_pigdm",
+        "sgm_dps_gaussian",
+        "sgm_pigdm_gaussian",
+        "sgm_proj_gaussian",
+    ]
 
 
 def set_attributes_from_config(self, config, keys, values):

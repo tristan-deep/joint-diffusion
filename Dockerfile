@@ -52,3 +52,4 @@ COPY . /joint-diffusion/
 RUN pip install tensorflow-addons tensorflow-gan tensorflow-datasets tensorflow-estimator
 RUN pip install --extra-index-url https://download.pytorch.org/whl/cu113 torch==1.12.1+cu113 torchvision torchmetrics ax-platform
 RUN pip install -r requirements/requirements.txt
+RUN pip install -U urllib3 requests
