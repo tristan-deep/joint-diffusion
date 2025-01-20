@@ -1,6 +1,6 @@
 # Removing Structured Noise with Diffusion Models
 
-### [Code](https://github.com/tristan-deep/joint-diffusion) | [Paper](https://arxiv.org/abs/2302.05290) | [Project Page](https://tristan-deep.github.io/publication/diffusion_paper) | [Blog](https://tristan-deep.github.io/posts/2023-02-11-diffusion-models/) | [Weights](https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ)
+### [Code](https://github.com/tristan-deep/joint-diffusion) | [Paper](https://arxiv.org/abs/2302.05290) | [Project Page](https://tristan-deep.github.io/publication/diffusion_paper) | [Blog](https://tristan-deep.github.io/posts/2023-02-11-diffusion-models/) | [Weights](https://huggingface.co/collections/tristan-deep/removing-structured-noise-using-diffusion-models-67802b581433e4ecf48e49bc)
 
 [Tristan Stevens](https://tristan-deep.github.io/),
 [Hans van Gorp](https://www.tue.nl/en/research/researchers/hans-van-gorp/),
@@ -10,10 +10,13 @@
 [Jean-Luc Robert](https://scholar.google.com/citations?hl=en&user=BrY9ygYAAAAJ),
 [Ruud van Sloun](https://www.tue.nl/en/research/researchers/ruud-van-sloun/)<br>
 
+> [!TIP]
+> Weights are now hosted on [Hugging Face](https://huggingface.co/collections/tristan-deep/removing-structured-noise-using-diffusion-models-67802b581433e4ecf48e49bc) 🤗.
+
 Official repository of the Removing Structured Noise with Diffusion Models [paper](https://arxiv.org/abs/2302.05290).
 The joint posterior sampling functions for diffusion models proposed in the paper can be found in [sampling.py](./generators/SGM/sampling.py) and [guidance.py](./generators/SGM/guidance.py). For the interested reader, a more in depth explanation of the method and underlying principles can be found [here](https://tristan-deep.github.io/posts/2023/03/diffusion-models/). Any information on how to setup the code and run inference can be found in the [getting started](#getting-started) section of this README.
 
-If you find the code useful for your research, please cite the paper:
+If you find the code useful for your research, please cite [the paper](https://arxiv.org/abs/2302.05290):
 ```bib
 @article{stevens2023removing,
   title={Removing Structured Noise with Diffusion Models},
@@ -44,13 +47,12 @@ If you find the code useful for your research, please cite the paper:
     - [Run inference](#run-inference)
     - [Inference configs](#inference-configs)
     - [Datasets](#datasets)
-    - [Installation environment](#installation-environment)
   - [References](#references)
 
 ## Structured denoising
 
 Run the following command with  `keep_track` set to `true` in the [config](./configs/inference/paper/celeba_mnist_pigdm.yaml) to run the structured denoising and generate the animation.
-```bash
+```shell
 python inference.py -e paper/celeba_mnist_pigdm -t denoise -m sgm
 ```
 <p align="center">
@@ -90,13 +92,32 @@ python inference.py -e paper/celeba_mnist_pigdm -t denoise -m sgm
 
 ## Getting started
 ### Install environment
-Install an environment with TF2.10 and Pytorch, both GPU enabled. All the other dependencies can be found in the [requirements](./requirements) folder. See [installation environment](#installation-environment) for more detailed instructions.
+Although manuall installation is possible, we recommend using the provided Dockerfile to build the environment. First, clone the repository and build the Docker image.
+
+```shell
+git clone git@github.com:tristan-deep/joint-diffusion.git
+cd joint-diffusion
+docker build . -t joint-diffusion:latest
+```
+
+This will build the image `joint-diffusion:latest` with all the necessary dependencies. To run the image, use the following command:
+
+```shell
+docker run -it --gpus all --user "$(id -u):$(id -g)" -v $(pwd):/joint-diffusion --name joint-diffusion joint-diffusion:latest
+```
+
+For manual installation one can check the [requirements.txt](./requirements/requirements.txt) file for dependencies as well as install CUDA enabled [Tensorflow](https://www.tensorflow.org/install/pip)(2.9) and [PyTorch](https://pytorch.org/get-started/locally/)(1.12) (latter only needed for the GLOW baseline).
+
+
 ### Download weights
-Pretrained weights should be automatically downloaded to the [./checkpoints](./checkpoints) folder, but can also be manually downloaded [here](https://drive.google.com/uc?id=1OxC_9MMf1W7sO2adeENpvrH2atsjThTZ). Each dataset is a different folder in the checkpoints directory and all the different models have a separate nested folder again for each dataset. In those model folders, besides the checkpoint, a training config `.yaml` file is provided for each trained model (necessary for inference, to build the model again).
+Pretrained weights should be automatically downloaded by the Hugging Face API, please create your access token [here](https://huggingface.co/docs/hub/en/security-tokens). However, they can also be manually downloaded [here](https://huggingface.co/collections/tristan-deep/removing-structured-noise-using-diffusion-models-67802b581433e4ecf48e49bc). The `run_id` model in the config either points to the Hugging Face repo using `hf://` (default) or to a local folder with the checkpoints manually saved. In those folders, besides the checkpoint, a training config `.yaml` file is provided for each trained model (necessary for inference, to build the model again).
+
+### Datasets
+Make sure to set the `data_root` parameter in the inference config (for instance this [config](./configs/inference/paper/celeba_mnist_pigdm.yaml)). It is set to the working directory as default. All datasets (for instance CelebA and MNIST) should be (automatically) downloaded and put as a subdirectory to the specified `data_root`. More information can be found in the [datasets.py](datasets.py) docstrings.
 
 ### Run inference
 Use the [inference.py](inference.py) script for inference.
-```
+```shell
 usage: inference.py [-h]
                     [-e EXPERIMENT]
                     [-t {denoise,sample,evaluate,show_dataset}]
@@ -122,53 +143,20 @@ options:
 
 Example:
 Main experiment with CelebA data and MNIST corruption:
-```bash
+```shell
 python inference.py -e paper/celeba_mnist_pigdm -t denoise -m bm3d nlm glow gan sgm
 ```
 Denoising comparison with multiple models:
-```bash
+```shell
 python inference.py -e paper/mnist_denoising -t denoise -m bm3d nlm glow gan sgm
 ```
 Or to run a sweep
-```bash
+```shell
 python inference.py -e paper/mnist_denoising -t denoise -m sgm -s sgm_sweep
 ```
 
 ### Inference configs
 All working inference configs are found in the [./configs/inference/paper](./configs/inference/paper) folder. Path to those inference configs (or just the name of them) should be provided to the `--experiment` flag when calling the [inference.py](inference.py) script.
-
-### Datasets
-Make sure to set the `data_root` parameter in the inference config (for instance this [config](./configs/inference/paper/celeba_mnist_pigdm.yaml)). It is set to the working directory as default. All datasets (for instance CelebA and MNIST) should be (automatically) downloaded and put as a subdirectory to the specified `data_root`. More information can be found in the [datasets.py](datasets.py) docstrings.
-
-### Installation environment
-Install packages in a conda environment with TF2 and Pytorch (latter only needed for the GLOW baseline).
-
-```bash
-conda create -n joint-diffusion python=3.10
-conda activate joint-diffusion
-python -m pip install --upgrade pip
-```
-
-To install Tensorflow ([installation guide](https://www.tensorflow.org/install/pip))
-```bash
-conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
-python -m pip install "tensorflow<2.11"
-# Verify install:
-python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
-```
-
-To install Pytorch >= 1.13 ([installation guide](https://pytorch.org/get-started/locally/))
-```bash
-conda install pytorch pytorch-cuda=11.7 -c pytorch -c nvidia
-conda install cudatoolkit
-# Verify install:
-python -c "import torch; print(torch.cuda.is_available())"
-```
-
-To install the other dependencies
-```bash
-pip install -r requirements/requirements.txt
-```
 
 ## References
 - Our paper https://arxiv.org/abs/2302.05290
