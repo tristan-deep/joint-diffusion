@@ -7,8 +7,8 @@ tmp/
 bash/
 data/
 
-# Ignore training checkpoint files (except configs)
-checkpoints/**/training_checkpoints/*
+# Ignore training checkpoint files
+checkpoints
 
 # ignore zips and tars
 *.zip

@@ -1,6 +1,7 @@
 """Sampling functionality for score-based diffusion models.
 Author(s): Tristan Stevens
 """
+
 import abc
 import warnings
 
@@ -444,7 +445,7 @@ class ScoreSampler:
                 samples from either prior or posterior if a measurement `y` is provided.
 
                 if joint inference (i.e. with noise_model), returns a tuple with x and n.
-                if keep_track, returns List with all intermediate steps.s
+                if keep_track, returns List with all intermediate steps.
 
         """
         # Initialize with z or x, also check if y is provided

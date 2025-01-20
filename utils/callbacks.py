@@ -318,7 +318,7 @@ class EvalDataset(Callback):
         idx = 0
 
         if self.denoiser.config.get("batch_size"):
-            batch_size = self.denoiser.batch_size
+            batch_size = self.denoiser.config.batch_size
         else:
             batch_size = 32
             print(

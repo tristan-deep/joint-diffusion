@@ -7,7 +7,7 @@ from pathlib import Path
 import wandb
 import yaml
 from easydict import EasyDict as edict
-from huggingface_hub import HfApi, login, snapshot_download
+from huggingface_hub import login, snapshot_download
 
 runs = {}
 

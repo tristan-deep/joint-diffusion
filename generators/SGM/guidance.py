@@ -1,6 +1,7 @@
 """Guidance class for joint posterior sampling
 Author(s): Tristan Stevens
 """
+
 import abc
 
 import tensorflow as tf
@@ -127,7 +128,7 @@ class PIGDM(Guidance):
 
         if self.A is not None:
             # compressed sensing y = Ax + n
-            m, d = tf.shape(self.A)
+            m = tf.shape(self.A)[0]
             I = tf.eye(m, m)
 
             # flatten x_0t and dx_0t_xt
@@ -196,7 +197,8 @@ class DPS(Guidance):
             tape.watch(x_mean)
             if self.A is not None:
                 # compressed sensing y = Ax + n
-                Ax = tf.linalg.matmul(x_mean, self.A_T)
+                _x_mean = tf.reshape(x_mean, (self.batch_size, -1))
+                Ax = tf.linalg.matmul(_x_mean, self.A_T)
                 norm = tf.linalg.norm((y - Ax))
             else:
                 norm = tf.linalg.norm((y - x_mean))
