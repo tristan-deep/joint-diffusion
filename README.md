@@ -13,18 +13,22 @@
 > [!TIP]
 > Weights are now hosted on [Hugging Face](https://huggingface.co/collections/tristan-deep/removing-structured-noise-using-diffusion-models-67802b581433e4ecf48e49bc) 🤗.
 
+> [!NOTE]
+> Our paper got accepted to [TMLR](https://openreview.net/forum?id=BvKYsaOVEn) 🎉!
+
 Official repository of the Removing Structured Noise with Diffusion Models [paper](https://arxiv.org/abs/2302.05290).
 The joint posterior sampling functions for diffusion models proposed in the paper can be found in [sampling.py](./generators/SGM/sampling.py) and [guidance.py](./generators/SGM/guidance.py). For the interested reader, a more in depth explanation of the method and underlying principles can be found [here](https://tristan-deep.github.io/posts/2023/03/diffusion-models/). Any information on how to setup the code and run inference can be found in the [getting started](#getting-started) section.
 
 If you find the code useful for your research, please cite [the paper](https://arxiv.org/abs/2302.05290):
 ```bib
-@article{stevens2023removing,
-  title={Removing Structured Noise with Diffusion Models},
-  author={Stevens, Tristan S. W. and van Gorp, Hans
-  and Meral, Faik C. and Shin, Junseob and Yu, Jason
-  and Robert, Jean-Luc and van Sloun, Ruud J. G.},
-  journal={arXiv preprint arXiv:2302.05290},
-  year={2023}
+@article{
+    stevensRemovingStructuredNoise2023,
+    title={Removing Structured Noise using Diffusion Models},
+    author={Stevens, Tristan SW and van Gorp, Hans and Meral, Faik C and Shin, Junseob and Yu, Jason and Robert, Jean-Luc and van Sloun, Ruud JG},
+    journal={Transactions on Machine Learning Research},
+    year={2025},
+    url={https://openreview.net/forum?id=BvKYsaOVEn},
+    note={},
 }
 ```
 <p align="center">
