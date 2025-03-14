@@ -144,15 +144,15 @@ options:
 Example:
 Main experiment with CelebA data and MNIST corruption:
 ```shell
-python inference.py -e paper/celeba_mnist_pigdm -t denoise -m bm3d nlm glow gan sgm
+python inference.py -e paper/celeba_mnist_pigdm -t denoise -m bm3d nlm gan sgm
 ```
 Denoising comparison with multiple models:
 ```shell
-python inference.py -e paper/mnist_denoising -t denoise -m bm3d nlm glow gan sgm
+python inference.py -e paper/celeba_denoising -t denoise -m bm3d nlm gan sgm
 ```
 Or to run a sweep
 ```shell
-python inference.py -e paper/mnist_denoising -t denoise -m sgm -s sgm_sweep
+python inference.py -e paper/celeba_denoising -t denoise -m sgm -s sgm_sweep
 ```
 
 ### Inference configs

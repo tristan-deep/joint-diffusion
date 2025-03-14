@@ -9,6 +9,7 @@ data/
 
 # Ignore training checkpoint files
 checkpoints
+.checkpoints
 
 # ignore zips and tars
 *.zip

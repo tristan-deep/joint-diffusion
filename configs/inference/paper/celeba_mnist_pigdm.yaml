@@ -9,7 +9,7 @@ run_id:
   glow: hf://tristan-deep/glow-celeba
   gan: hf://tristan-deep/gan-celeba
 # device
-device: 0
+device: null
 # random seed
 seed: 12345
 # number of images to process
