@@ -22,13 +22,13 @@ The joint posterior sampling functions for diffusion models proposed in the pape
 If you find the code useful for your research, please cite [the paper](https://arxiv.org/abs/2302.05290):
 ```bib
 @article{
-    stevensRemovingStructuredNoise2023,
-    title={Removing Structured Noise using Diffusion Models},
-    author={Stevens, Tristan SW and van Gorp, Hans and Meral, Faik C and Shin, Junseob and Yu, Jason and Robert, Jean-Luc and van Sloun, Ruud JG},
-    journal={Transactions on Machine Learning Research},
-    year={2025},
-    url={https://openreview.net/forum?id=BvKYsaOVEn},
-    note={},
+  stevens2025removing,
+  title={Removing Structured Noise using Diffusion Models},
+  author={Stevens, Tristan SW and van Gorp, Hans and Meral, Faik C and Shin, Junseob and Yu, Jason and Robert, Jean-Luc and van Sloun, Ruud JG},
+  journal={Transactions on Machine Learning Research},
+  issn={2835-8856},
+  year={2025},
+  url={https://openreview.net/forum?id=BvKYsaOVEn},
 }
 ```
 <p align="center">
